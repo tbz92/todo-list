@@ -53,7 +53,7 @@ function TodoForm() {
     const getDeadlineDateTime = () => {
         let date = moment(deadlineDate).format('YYYY-MM-DD');
         let time = moment(deadlineTime).format('H:mm');
-        return moment(date + ' ' + time).utc()
+        return moment(date + ' ' + time)
     }
 
     const clearFields = () => {
@@ -66,7 +66,7 @@ function TodoForm() {
     const handleSave = () => {
         axios.post('/api/todos', {
             task,
-            deadline: getDeadlineDateTime()
+            deadline: getDeadlineDateTime().utc()
         })
             .then(function (response) {
                 NotificationManager.success(response.message, 'Success!');
@@ -91,13 +91,13 @@ function TodoForm() {
                         />
                     </div>
                     <div className="col-auto m-0 px-2 d-flex align-items-center">
-                        {!checkDateTimeFilled() &&
-                            (
-                                <label className="text-secondary my-2 p-0 px-1 view-opt-label due-date-label">
-                                    Due date not set
-                                </label>
-                            )
-                        }
+                        <label className="text-secondary my-2 p-0 px-1 view-opt-label due-date-label">
+                            {
+                                !checkDateTimeFilled()
+                                    ? 'Due date not set'
+                                    : getDeadlineDateTime().format('YYYY-MM-DD H:mm')
+                            }
+                        </label>
                         <i className="fa fa-calendar my-2 px-1 text-primary btn due-date-button"
                            data-toggle="tooltip"
                            data-placement="bottom"

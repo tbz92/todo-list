@@ -50,7 +50,7 @@ function TodoList({todos, setTodos}) {
                                         <i className="fa fa-check-square-o text-primary btn m-0 p-0"
                                            data-toggle="tooltip"
                                            data-placement="bottom"
-                                           title="Mark as todo"/>
+                                        />
                                     </h2>
                                 </div>
                                 <div className="col px-1 m-1 d-flex align-items-center">
@@ -62,7 +62,10 @@ function TodoList({todos, setTodos}) {
                                     />
                                     <label className="date-label my-2 text-black-50" style={{width: '100%'}}>
                                         {
-                                            moment.utc(todo.deadline).local().format('YYYY-MM-DD H:mm')
+                                            <React.Fragment>
+                                                <strong>Deadline: </strong>
+                                                {moment.utc(todo.deadline).local().format('LT, Do MMMM')}
+                                            </React.Fragment>
                                         }
                                     </label>
 
