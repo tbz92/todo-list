@@ -2,7 +2,6 @@ import {NotificationManager} from "react-notifications";
 
 export const genericNetworkError = err => {
 
-    console.log(err.response.data.errors);
     NotificationManager.error(
         err.response.data.errors
             ? transformError(err.response.data.errors)
